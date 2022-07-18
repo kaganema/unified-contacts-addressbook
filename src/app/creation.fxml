@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.text.Text?>
+<AnchorPane prefHeight="443.0" prefWidth="295.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ContactControl">
+   <children>
+      <VBox fx:id="form" alignment="TOP_CENTER" prefHeight="443.0" prefWidth="273.0" spacing="20.0">
+         <children>
+            <Label text="Add your contact" />
+            <ChoiceBox fx:id="contactType" prefWidth="150.0" />
+            <TextField fx:id="contactName" prefHeight="25.0" prefWidth="495.0" promptText="Name" />
+            <HBox fx:id="phoneset" prefHeight="27.0" prefWidth="214.0">
+               <children>
+                  <TextField fx:id="pnumber" promptText="Phone" />
+                  <ChoiceBox fx:id="phoneType" prefHeight="25.0" prefWidth="72.0" />
+               </children>
+            </HBox>
+            <HBox fx:id="emailset" prefHeight="29.0" prefWidth="214.0">
+               <children>
+                  <TextField fx:id="primaryEmail" onMouseExited="#validEmail" promptText="Email" />
+                  <ChoiceBox fx:id="addressType" prefHeight="25.0" prefWidth="71.0" />
+               </children>
+            </HBox>
+            <Label text="Other Contacts" />
+            <Label text="Please specify service and link to account" />
+            <Region fx:id="accountList" prefHeight="19.0" prefWidth="253.0" />
+            <Group>
+               <children>
+                  <VBox fx:id="altAccount" prefHeight="77.0" prefWidth="163.0">
+                     <children>
+                        <TextField fx:id="hostSite" promptText="Account" />
+                        <TextField fx:id="accountLink" promptText="Link" />
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="userAccount" mnemonicParsing="false" onMouseClicked="#nextAccount" text="Add" />
+                              <Button fx:id="resetAccountForm" mnemonicParsing="false" onMouseClicked="#clearUser" text="Reset" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </Group>
+            <Button fx:id="resetData" mnemonicParsing="false" onMouseClicked="#clearFormAll" text="Reset All" />
+            <Button fx:id="confirm" mnemonicParsing="false" onAction="#processPerson" text="Confirm" />
+            <!--<Text fx:id="invalid" value="" />-->
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>

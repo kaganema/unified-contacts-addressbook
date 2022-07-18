@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.cell.MapValueFactory?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="359.0" prefWidth="584.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller">
+    <top>
+        <HBox id="menuitems" prefWidth="500.0" spacing="10.0">
+         <children>
+            <Button fx:id="addContact" mnemonicParsing="false" onAction="#addContactMember" text="New" />
+            <Button fx:id="moreAddress" mnemonicParsing="false" text="Expand" visible="false" />
+             <Button fx:id="save" mnemonicParsing="false" text="Save" visible="false" />
+            <!--<Button fx:id="loadContacts" mnemonicParsing="false" text="Load" visible="false" />-->
+             <Button fx:id="eraser" mnemonicParsing="false" text="Clean" visible="false" />
+             <Button fx:id="topHelp" mnemonicParsing="false" text="Help" visible="false" />
+            <StackPane alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="42.0">
+               <children>
+                  <ImageView fitHeight="24.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </StackPane>
+         </children></HBox>
+    </top>
+   <center>
+      <GridPane prefHeight="285.0" prefWidth="336.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TableView fx:id="contactList" editable="true" onMouseClicked="#loadAccountList" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" GridPane.rowSpan="2147483647">
+              <columns>
+                  <TableColumn fx:id="userName" onEditCommit="#changeName" prefWidth="120.0" text="Name">
+                      <cellValueFactory>
+                          <PropertyValueFactory property="cName" />
+                      </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn fx:id="mainPhone" onEditStart="#changeNumber" prefWidth="115.0" text="Phone">
+                      <cellValueFactory>
+                          <PropertyValueFactory property="primaryPhoneNumber" />
+                      </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn fx:id="genEmail" onEditCommit="#changeEmail" prefWidth="125.0" text="Email">
+                      <cellValueFactory>
+                          <PropertyValueFactory property="primaryEmailAddress" />
+                      </cellValueFactory>
+                     <!-- <cellFactory>
+                      </cellFactory>-->
+                  </TableColumn>
+                  <!--<TableColumn fx:id="accountData" text="Accounts" />-->
+                  <!-- Temporary fix -->
+                  <!--<TableColumn fx:id="accountData" text="Accounts">
+                  </TableColumn>-->
+              </columns>
+            </TableView>
+            <HBox maxHeight="60.0" prefHeight="54.0" prefWidth="88.0" spacing="30.0" GridPane.columnSpan="2147483647">
+               <children>
+                  <ChoiceBox fx:id="category" prefWidth="150.0">
+                     <HBox.margin>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </HBox.margin></ChoiceBox>
+                  <ChoiceBox fx:id="phoneType" prefWidth="150.0" />
+                  <ChoiceBox fx:id="addressType" prefWidth="150.0" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <GridPane.margin>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </GridPane.margin>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+         </BorderPane.margin>
+      </GridPane>
+   </center>
+   <right>
+       <AnchorPane maxWidth="200.0" prefHeight="200.0" prefWidth="200.0">
+           <children>
+               <VBox prefHeight="291.0" prefWidth="170.0" spacing="8.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="2.0">
+                   <padding>
+                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                   </padding>
+                   <children>
+                       <Button fx:id="help" mnemonicParsing="false" text="Help" />
+                       <CheckBox fx:id="tagDisplay" mnemonicParsing="false" onMouseClicked="#changeView" text="Tags" visible="false" />
+                       <Label fx:id="contact"  />
+                       <TableView fx:id="accountsTable" prefHeight="141.0" prefWidth="160.0">
+                           <columns>
+                               <!-- Set MapProperty on Columns -->
+                               <!--<TableColumn prefWidth="75.0" text="Site" />-->
+                               <!--<TableColumn prefWidth="84.0" text="Link" />-->
+                               <TableColumn fx:id="sites" prefWidth="75.0" text="Site">
+                                   <cellValueFactory>
+                                       <MapValueFactory key="site" />
+                                       <!--<PropertyValueFactory property="addresses.keySet" />-->
+                                       <!--<PropertyValueFactory property="sets.keySet" />-->
+                                   </cellValueFactory>
+                               </TableColumn>
+                               <TableColumn fx:id="links" prefWidth="84.0" text="Link">
+                                   <cellValueFactory>
+                                       <MapValueFactory key="link" />
+                                       <!--<PropertyValueFactory property="addresses.values" />-->
+                                       <!--<PropertyValueFactory property="sets.values" />-->
+                                   </cellValueFactory>
+                                   <!--<cellFactory><Callback fx:id="accountsFactory" /></cellFactory>-->
+                               </TableColumn>
+                           </columns>
+                       </TableView>
+                       <!--<Button fx:id="removeLink" text="Drop" />-->
+                  <TextField fx:id="addSiteTag" promptText="Add another site" />
+                  <TextField fx:id="addLink" promptText="Paste new link" />
+                       <Button fx:id="addAct" onAction="#addAccount" text="Add" />
+                   </children>
+               </VBox>
+           </children>
+       </AnchorPane>
+   </right>
+   <bottom>
+      <Pane prefHeight="79.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox layoutY="-1.0" prefHeight="79.0" prefWidth="500.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Button fx:id="dropContact" mnemonicParsing="false" onMouseClicked="#deleteMember" text="Drop" />
+                        <Button fx:id="editContact" mnemonicParsing="false" text="Edit Contact" />
+                        <Button mnemonicParsing="false" text="Email App" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <ToolBar prefHeight="35.0" prefWidth="534.0">
+                    <items>
+                        <Button mnemonicParsing="false" text="Customise" />
+                    </items>
+                  </ToolBar>
+               </children>
+            </VBox>
+         </children></Pane>
+   </bottom>
+   <padding>
+      <Insets left="5.0" right="5.0" top="5.0" />
+   </padding>
+</BorderPane>
