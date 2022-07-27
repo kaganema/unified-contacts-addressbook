@@ -42,7 +42,7 @@ public class EmailAddress {
 
     @Override
     public String toString() {
-        return this.type + ": " + this.address;
+        return this.type + ":" + this.address;
     }
 
     // JavaFX binding properties

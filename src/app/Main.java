@@ -23,16 +23,6 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    /**
-     * Initialise the user's directory
-    * We want to return a value because we want to pass that same variable as reference.
-     * @param name the url to the directory. */
-    public File userDir(String name) throws Exception {
-        File f = new File(name);
-        f.mkdir();
-        return f;
-    }
-
     public static void main(String[] args) {
         launch(args);
     }

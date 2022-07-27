@@ -21,11 +21,6 @@ public class PhoneNumber {
     Pattern ph;
     Matcher mp;
 
-    /*public PhoneNumber(String t, String value) {
-        type = t;
-        number = value;
-    }*/
-
     /**
      * A new phone number instance constructed from the text fields
      * @param t the appropriate phone number type
@@ -59,7 +54,7 @@ public class PhoneNumber {
 
     @Override
     public String toString() {
-        return this.type + ": " + this.number;
+        return this.type + ":" + this.number;
     }
 
     // JavaFx properties and bindings

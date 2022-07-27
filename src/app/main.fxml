@@ -27,11 +27,11 @@
         <HBox id="menuitems" prefWidth="500.0" spacing="10.0">
          <children>
             <Button fx:id="addContact" mnemonicParsing="false" onAction="#addContactMember" text="New" />
-            <Button fx:id="moreAddress" mnemonicParsing="false" text="Expand" visible="false" />
-             <Button fx:id="save" mnemonicParsing="false" text="Save" visible="false" />
-            <!--<Button fx:id="loadContacts" mnemonicParsing="false" text="Load" visible="false" />-->
-             <Button fx:id="eraser" mnemonicParsing="false" text="Clean" visible="false" />
-             <Button fx:id="topHelp" mnemonicParsing="false" text="Help" visible="false" />
+            <!-- Current load button location, possible change in an update. -->
+            <Button fx:id="loadContacts" mnemonicParsing="false" text="Load" onMouseClicked="#loadMembers" />
+            <Button fx:id="save" mnemonicParsing="false" text="Save" onMouseClicked="#storeMembers" />
+            <!-- <Button fx:id="eraser" mnemonicParsing="false" text="Clean" visible="false" /> -->
+            <!-- <Button fx:id="topHelp" mnemonicParsing="false" text="Help" visible="false" /> -->
             <StackPane alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="42.0">
                <children>
                   <ImageView fitHeight="24.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" />
@@ -150,7 +150,6 @@
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
                         <Button fx:id="dropContact" mnemonicParsing="false" onMouseClicked="#deleteMember" text="Drop" />
-                        <Button fx:id="editContact" mnemonicParsing="false" text="Edit Contact" />
                         <Button mnemonicParsing="false" text="Email App" />
                      </children>
                      <VBox.margin>

@@ -108,8 +108,8 @@ public class Contact {
 
     @Override
     public String toString() {
-        return this.name + ": " + this.purpose.toString() + ": " + this.phone.toString()
-                + ", " + this.email.toString() + ", " + this.accounts.toString() + ", " + this.accounts.size();
+        return this.name + ":" + this.purpose.toString() + " " + this.phone.toString()
+                + " " + this.email.toString() + " " + this.accounts.toString();
     }
 
     public String getName() {

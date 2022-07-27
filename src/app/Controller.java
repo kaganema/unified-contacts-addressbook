@@ -25,11 +25,12 @@ import javafx.util.StringConverter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.*;
 
 /**
  * Controller class for the main panel.
  * @author Emir Atik (kaganema) (using code based on Oracle's docs and others)
- * @version 0.9 16/07/2022 */
+ * @version 1.0 27/07/2022 */
 public class Controller {
     private ObservableList<String> filters;
 
@@ -95,6 +96,12 @@ public class Controller {
         this.tagDisplay.setSelected(ticked);
         this.name = "Name";
 
+        // Get the app directory or make one
+        try {
+            ContactList.local();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
 
         this.category.setItems(filters);
         this.phoneType.setItems(FXCollections.observableArrayList("None", "Home", "Work", "Mobile"));
@@ -238,23 +245,17 @@ public class Controller {
         name = contactList.getSelectionModel().getSelectedItem().getcName();
     }*/
 
-    // On edit commit content for the accounts table.
-
-    /*accountsTable.getColumns().get(0).setCellFactory(TextFieldTableCell.<Contact>forTableColumn());
-        accountsTable.getColumns().get(0).setOnEditCommit((TableColumn.CellEditEvent<Contact,String> t) -> {
-                ((Contact) t.getTableView().getItems().get(t.getTablePosition().getRow())).setcName(t.getNewValue());
-            });*/
-
-    /*@FXML void editKey() {}*/
-
-    /*@FXML void editValue(TableColumn.CellEditEvent<Contact, String> link) { }*/
-
     /**
      * Add a new account to the member, effectively updating the table.
      */
     @FXML void addAccount() {
-        // Either this or use members list
-        ContactList.contactList.get(contactList.getSelectionModel().getSelectedIndex()).getAccounts().put(addSiteTag.getText(), addLink.getText());
+        // For the time being, just pass a random id for an empty key.
+        String id = addSiteTag.getText().isEmpty() ? String.valueOf(Math.round(Math.random() * 100000)) : addSiteTag.getText();
+        // The two conditions that a link needs to be valid (either empty or an accepted address format)
+        Pattern l = Pattern.compile("(^$)|(^_$)");
+        Pattern v = Pattern.compile("((^https?:\\/\\/)?[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#\\[\\]@!\\$&'\\(\\)\\*\\+,;=.]+$)");
+        String subs = l.matcher(addLink.getText()).find() ? "_" : ((v.matcher(addLink.getText()).find()) ? addLink.getText() : "_");
+        ContactList.contactList.get(contactList.getSelectionModel().getSelectedIndex()).getAccounts().put(id, subs);
         addSiteTag.clear();
         addLink.clear();
     }
@@ -295,6 +296,18 @@ public class Controller {
     public void deleteMember() {
         //members.remove(contactList.getSelectionModel().getSelectedItem());
         members.removeAll(contactList.getSelectionModel().getSelectedItems());
+    }
+
+    // File handling utilities.
+
+    @FXML void loadMembers() {
+        // Don't duplicate the list
+        if (contactList.getItems().isEmpty())
+            ContactList.load();
+    }
+
+    @FXML void storeMembers() {
+        ContactList.save(contactList.getItems());
     }
 
 }

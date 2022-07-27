@@ -73,13 +73,12 @@ public class ContactControl {
         collection.add("Mobile");
         this.phoneType.setItems(collection);
         sites = new HashMap<>();
-        //soc = new ArrayList<>();
         id = 0;
     }
 
 
     /*
-    * All form validation will be processed here. */
+    * All form validation will be processed here. (Currently not in use) */
 
     public boolean validate(String exp, String txt) {
         // Since only one case of validation has a unique flag..
@@ -88,21 +87,12 @@ public class ContactControl {
         return mt.find();
     }
 
-    public void validateNumber(String n) {
-        pt = Pattern.compile("^(\\+\\d{1,3}( )?)?((\\(\\d{1,3}\\))|\\d{1,3})[- .]?\\d{3,4}[- .]?\\d{4}$");
-        mt = pt.matcher(pnumber.getText());
-        if (mt.find()) {
-            //member.setPhone(new PhoneNumber(phoneType.getValue(), phoneset.getText()));
-        } // else set invalid
-    }
-
     /**
      * Get a valid phone number that takes international codes and various formats into account.
      * Solution for valid phone number pattern: https://codingnconcepts.com/java/java-regex-to-validate-phone-number/
      * @return a valid match.
      */
     private boolean validateNumber() {
-        //pt = Pattern.compile("^(\\+\\d{1,3}( )?)?((\\(\\d{1,3}\\))|\\d{1,3})[- .]?\\d{3,4}[- .]?\\d{4}$");
         pt = Pattern.compile("(^$)|(^(\\+\\d{1,3}( )?)?((\\(\\d{1,3}\\))|\\d{1,3})[- .]?\\d{3,4}[- .]?\\d{4}$)");
         mt = pt.matcher(pnumber.getText());
         // Return true or false.
@@ -116,15 +106,6 @@ public class ContactControl {
             //member.setPhone(new PhoneNumber(phoneType.getValue(), phoneset.getText()));
         } // else set invalid
     }*/
-
-    public String validNumber() {
-        pt = Pattern.compile("^(\\+\\d{1,3}( )?)?((\\(\\d{1,3}\\))|\\d{1,3})[- .]?\\d{3,4}[- .]?\\d{4}$");
-        mt = pt.matcher(pnumber.getText());
-        if (!mt.find()) {
-            //member.setPhone(new PhoneNumber(phoneType.getValue(), phoneset.getText()));
-        } // else set invalid
-        return mt.toString();
-    }
 
     // Option: Change the parameter once the control has been obtained.
 
@@ -144,7 +125,6 @@ public class ContactControl {
 //                "(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:" +
 //                "[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])");
         pt = Pattern.compile("(^$|^.*@.*\\.\\w*$)", Pattern.CASE_INSENSITIVE);
-        //pt = Pattern.compile("(^$)|(^.*@.*\\.\\w*$)");
         mt = pt.matcher(primaryEmail.getText());
         return mt.find();
     }
@@ -159,9 +139,12 @@ public class ContactControl {
      */
     @FXML
     public void nextAccount() {
-        // check if valid link?
+        // update: check if valid link here?
         warningText = new Text();
+        // Set key to the text value, or create a generic one with a number if one isn't provided.
         String v = hostSite.getText().equals("") ? "site" + id++ : hostSite.getText();
+        // Check if any link is added to the text, otherwise, pass in an underscore.
+        String h = (accountLink.getText().equals("") || accountLink.getText().equals(" ")) ? "_" : accountLink.getText();
         // Make sure an account from the same site doesn't exist
         if (sites.containsKey(v)) {
             // Print a message of site key already existing.
@@ -174,14 +157,13 @@ public class ContactControl {
         }
         //String v = noId(hostSite.getText()) ? "site" + id++ : hostSite.getText();
         //sites.put(hostSite.getText(), accountLink.getText());
-        sites.put(v, accountLink.getText());
+        sites.put(v, h));
         //soc.add(new Account(v, accountLink.getText()));
         warningText.setText("");
         altAccount.getChildren().remove(warningText);
         clearAccount();
     }
 
-    //public void validateLink(String val) {}
 
     private boolean noId(String txt) {
         pt = Pattern.compile("(^$)");
@@ -196,17 +178,11 @@ public class ContactControl {
      * @return a valid, or acceptable, link format
      */
     public boolean validateLink(String val) {
-        pt = Pattern.compile("(^$)|((^https?:\\/\\/)?[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#\\[\\]@!\\$&'\\(\\)\\*\\+,;=.]+$)");
+        pt = Pattern.compile("(^$)|(^_$)|((^https?:\\/\\/)?[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#\\[\\]@!\\$&'\\(\\)\\*\\+,;=.]+$)");
         //pt = Pattern.compile("^https?://.+\\..+\\..+\\..{3,4}");
         mt = pt.matcher(val);
         return mt.find();
     }
-
-    /*public boolean validateLink() {
-        pt = Pattern.compile("^https?://");
-        mt = pt.matcher(val);
-        return mt.find();
-    }*/
 
     /**
      * Clear any data entered into the web accounts sub form.
@@ -227,7 +203,6 @@ public class ContactControl {
         addressType.getSelectionModel().clearSelection();
         clearAccount();
         sites.clear();
-        //soc.clear();
     }
 
     /**
