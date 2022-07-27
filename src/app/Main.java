@@ -11,7 +11,7 @@ import java.io.File;
 /**
  * An application to create a contact list address book, with additional details for adding links online.
  * @author Emir Atik (github: kaganema) (using code based on Oracle's docs and others)
- * @version 0.9 16/07/2022
+ * @version 1.0 27/07/2022
  */
 public class Main extends Application {
 
